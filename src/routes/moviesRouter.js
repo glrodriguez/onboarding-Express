@@ -7,7 +7,7 @@ const moviesRouter = Router();
 moviesRouter.post("/", saveMovie);
 
 moviesRouter.get("/", getMovies);
-moviesRouter.get("/:id", getMovie);   // Ver cual de las 2 se ejecuta
+moviesRouter.get("/:id", getMovie);
 
 moviesRouter.put("/:id", updateMovie);
 

@@ -4,18 +4,7 @@ import Movie from "../models/movieModel.js";
 // Create movie from body
 export const saveMovie = async (req, res) => {
   try {
-    const { title, year, description, director, length, rating, genres } = req.body;
-
-    // Ver que pasa cuando no recibo alguno de los datos que no son obligatorios. Queda la variable undefined? como creo despues el objeto
-    const movie = new Movie({
-      title,
-      year,
-      description,
-      director,
-      length,
-      rating,
-      genres
-    });
+    const movie = new Movie({...req.body});
 
     await movie.save();
 
@@ -41,8 +30,7 @@ export const getMovies = async (req, res) => {
 // Get movie data by id
 export const getMovie = async (req, res) => {
   try {
-    const id = req.params.id;
-    const movie = await Movie.findById(id);
+    const movie = await Movie.findById(req.params.id);
 
     res.status(200).json(movie);
   } catch (error) {
@@ -54,19 +42,10 @@ export const getMovie = async (req, res) => {
 // Update movie by id
 export const updateMovie = async (req, res) => {
   try {
-    const id = req.params.id;
-    const { title, year, description, director, length, rating, genres } = req.body;
-
     const movie = await Movie.findByIdAndUpdate(
-      id,
+      req.params.id,
       {
-        title,
-        year,
-        description,
-        director,
-        length,
-        rating,
-        genres
+        ...req.body
       },
       {
         new: true,
@@ -88,10 +67,8 @@ export const updateMovie = async (req, res) => {
 // Delete movie (soft) by id
 export const deleteMovie = async (req, res) => {
   try {
-    const id = req.params.id;
-
     const movie = await Movie.findByIdAndUpdate(
-      id,
+      req.params.id,
       {
         isDeleted: true
       },
