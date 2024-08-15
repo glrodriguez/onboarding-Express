@@ -6,4 +6,5 @@ const moviesRouter = Router();
 
 moviesRouter.get("/", getMovies);
 
+
 export default moviesRouter;
