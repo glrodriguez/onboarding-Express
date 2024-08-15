@@ -1,0 +1,27 @@
+{
+  "name": "onboarding",
+  "version": "1.0.0",
+  "description": "Simple Express Mongo Project",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/glrodriguez/onboarding-Express.git"
+  },
+  "author": "Gabriel Rodriguez",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/glrodriguez/onboarding-Express/issues"
+  },
+  "homepage": "https://github.com/glrodriguez/onboarding-Express#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.4"
+  }
+}
