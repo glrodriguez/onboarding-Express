@@ -1,5 +1,6 @@
 import { config } from "dotenv";
 
+// Loads .env file contents into process.env by default
 config();
 
 export default {
