@@ -1,7 +1,5 @@
 import express from "express";
 import morgan from 'morgan';
-import bodyParser from "body-parser";
-import cookieParser from "cookie-parser";
 import session from "express-session";
 import passport from "passport";
 import { Strategy } from "passport-local";
@@ -15,7 +13,6 @@ import userRouter from "./routes/usersRouter.js";
 import { getConnection } from "./database/database.js";
 
 import User from "./models/userModel.js";
-import config from "./config.js";
 
 
 const app = express();
@@ -43,12 +40,10 @@ const strategy = new Strategy(User.authenticate())
 passport.use(strategy);
 
 passport.serializeUser((user, done) => {
-  console.log('Serializando usuario:', user);
   done(null, user._id);
 });
 
 passport.deserializeUser(async (id, done) => {
-  console.log('Deserializando usuario con ID:', id);
   try {
     const user = await User.findById(id);
     console.log('Usuario deserializado:', user);

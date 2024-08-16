@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 
 
 // Create user from body
-export const signUp = async (req, res) => {
+export const register = async (req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username });
 
@@ -12,34 +12,21 @@ export const signUp = async (req, res) => {
       return res.status(409).json({ error: "El usuario ya existe" });  
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
-
-    const newUser = new User({username: req.body.username, password: hashedPassword});
-    await newUser.save();
-
-    res.status(201).json({ message: 'User created correctly', newUser });
+    User.register(
+      new User({
+        username: req.body.username 
+      }), req.body.password, function (err, msg) {
+        if (err) {
+          res.send(err);
+        } else {
+          return res.status(201).json({ message: 'User created correctly', newUser });
+        }
+      }
+    );
   } catch (error) {
     console.error('Error creating user:', error);
     res.status(500).json({ error: 'Error creating user' });
   }
-};
-
-export const login = async (req, res) => {
-  passport.authenticate('local', {
-    failureRedirect: '/login-failure', 
-    successRedirect: '/login-success'
-  });
-  return res.status(200).json({ message: 'Inicio de sesión exitoso', user: req.body.username });
-};
-
-export const logout = async (req, res) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
-    }
-    return res.status(200).json({ message: 'Sesión cerrada exitosamente' });
-  });
 };
 
 // Get all users list
