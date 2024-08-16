@@ -4,6 +4,11 @@ import { saveMovie, getMovies, getMovie, updateMovie, deleteMovie } from "../con
 
 const moviesRouter = Router();
 
+moviesRouter.use((req, res, next) => {
+  res.locals.curretUser = req.user;
+  next();
+});
+
 moviesRouter.post("/", saveMovie);
 
 moviesRouter.get("/", getMovies);

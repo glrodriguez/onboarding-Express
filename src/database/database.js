@@ -8,7 +8,7 @@ let isConnected = false;
 async function connectToDatabase() {
   if (!isConnected) {
   try {
-    await mongoose.connect(`mongodb://${config.host}:${config.port}/`, { dbname: config.database });
+    mongoose.connect(`mongodb://${config.host}:${config.port}/`, { dbname: config.database });
     isConnected = true;
     console.log("Successfully connected to MongoDB");
   } catch (error) {

@@ -4,7 +4,7 @@ import Movie from "../models/movieModel.js";
 // Create movie from body
 export const saveMovie = async (req, res) => {
   try {
-    const movie = new Movie({...req.body});
+    const movie = new Movie(req.body);
 
     await movie.save();
 
